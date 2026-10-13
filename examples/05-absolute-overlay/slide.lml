@@ -1,0 +1,21 @@
+// Example 5: explicit host with absolute overlay
+// Pattern: one base page plus source-ordered at overlays inside host z
+
+host(align: center, justify: center) {
+z {
+    page(w: 960, h: 540, pad: 40) {
+        v(fit, 1fr, gap: 24) {
+            md:title
+            md:body
+        }
+    }
+
+    at(top: 24, right: 24, w: 180) {
+        md:status
+    }
+
+    at(left: 40, right: 40, bottom: 28) {
+        md:footer
+    }
+}
+}

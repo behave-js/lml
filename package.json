@@ -1,0 +1,35 @@
+{
+  "name": "lml",
+  "version": "0.1.0",
+  "description": "Layout markup for UI and slide geometry, paired with Markdown",
+  "type": "module",
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.js"
+    }
+  },
+  "files": [
+    "dist/src",
+    "dist/spec"
+  ],
+  "scripts": {
+    "clean": "node ./scripts/clean.mjs",
+    "build": "npm run clean && tsc",
+    "test": "vitest run",
+    "test:package": "npm run build && node ./scripts/package-smoke.mjs",
+    "prepack": "npm run build",
+    "wysiwyg": "npm run dev --prefix wysiwyg"
+  },
+  "devDependencies": {
+    "@types/commonmark": "^0.27.10",
+    "typescript": "^5.7.2",
+    "vitest": "^5.0.0"
+  },
+  "dependencies": {
+    "commonmark": "^0.31.2"
+  },
+  "license": "MIT"
+}

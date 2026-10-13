@@ -1,0 +1,29 @@
+// Example 3: KPI grid + inline md + spacer header
+// Pattern: h + space + grid(cols: 3) + fit/fr mix
+
+page(pad: 32) {
+    v(fit, 1fr, fit, gap: 20) {
+        h(align: center) {
+            md:logo
+            space(2fr)
+            md """
+            ## Q1 2026 Snapshot
+            Revenue & Operations
+            """
+        }
+
+        grid(cols: 1fr 1fr 1fr, gap: 16) {
+            md:revenue
+            md:customers
+            md:nps
+            md:churn
+            md:arr
+            md:headcount
+        }
+
+        h(1fr, 2fr, gap: 24, align: leading) {
+            md:highlights
+            md:chart
+        }
+    }
+}

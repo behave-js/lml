@@ -1,0 +1,154 @@
+// Example 7: mobile app screens — Nourish Today variants + sleep dashboard home
+// LML describes geometry only; content, metrics, and actions live in slide.md.
+host(align: center, justify: center) {
+    page(md:today_card_macros, w: 390, h: 844, pad: 20) {
+        v(fit, fit, fit, fit, fit, 1fr, fit, gap: 16, align: stretch) {
+            md:card_brand
+            md:card_today_heading
+
+            v(gap: 14, pad: 20) {
+                h(96, 1fr, gap: 16, align: center) {
+                    md:card_calorie_ring
+                    v(fit, fit, gap: 4) {
+                        md:card_calorie_remaining
+                        md:card_calorie_consumed
+                    }
+                }
+                v(gap: 10) {
+                    md:card_macro_protein
+                    md:card_macro_carbs
+                    md:card_macro_fat
+                }
+            }
+
+            md:card_meals_heading
+
+            h(72, 1fr, gap: 12, align: center) {
+                md:card_meal_image
+                v(fit, fit, fit, gap: 4) {
+                    md:card_meal_title
+                    md:card_meal_calories
+                    md:card_meal_macros
+                }
+            }
+
+            space
+
+            z {
+                h(fit, 1fr, fit, gap: 12, align: center) {
+                    md:card_bottom_nav
+                    space
+                    md:card_scan_fab
+                }
+            }
+        }
+    }
+
+    page(md:today_ring_hero, w: 390, h: 844, pad: 20) {
+        v(fit, fit, fit, fit, fit, fit, 1fr, fit, gap: 18, align: stretch) {
+            md:ring_brand
+            md:ring_today_heading
+
+            v(gap: 8, pad: 24, align: center) {
+                md:ring_calorie_ring
+                md:ring_calorie_remaining
+                md:ring_calorie_consumed
+            }
+
+            v(gap: 14) {
+                md:ring_macro_protein
+                md:ring_macro_carbs
+                md:ring_macro_fat
+            }
+
+            md:ring_meals_heading
+
+            h(72, 1fr, gap: 12, align: center) {
+                md:ring_meal_image
+                v(fit, fit, fit, gap: 4) {
+                    md:ring_meal_title
+                    md:ring_meal_calories
+                    md:ring_meal_macros
+                }
+            }
+
+            space
+
+            md:ring_scan_action
+        }
+    }
+
+    page(md:today_split_headline, w: 390, h: 844, pad: 20) {
+        v(fit, fit, fit, fit, fit, 1fr, fit, gap: 16, align: stretch) {
+            md:split_brand
+            md:split_today_heading
+
+            v(gap: 16, pad: 20) {
+                h(1fr, 88, gap: 12, align: center) {
+                    md:split_calorie_remaining
+                    md:split_calorie_ring
+                }
+                v(gap: 12) {
+                    md:split_macro_protein
+                    md:split_macro_carbs
+                    md:split_macro_fat
+                }
+            }
+
+            md:split_meals_heading
+
+            h(72, 1fr, gap: 12, align: center) {
+                md:split_meal_image
+                v(fit, fit, fit, gap: 4) {
+                    md:split_meal_title
+                    md:split_meal_calories
+                    md:split_meal_macros
+                }
+            }
+
+            space
+
+            md:split_scan_action
+        }
+    }
+
+    page(md:sleep_home, w: 390, h: 844, pad: 20) {
+        v(fit, fit, 1fr, fit, fit, gap: 16, align: stretch) {
+            v(fit, fit, gap: 4) {
+                h(fit, fit, gap: 8, align: center) {
+                    md:sleep_greeting
+                    md:sleep_info_action
+                }
+                md:sleep_date
+            }
+
+            md:sleep_period_tabs
+
+            v(fit, 1fr, gap: 12, pad: 16) {
+                h(1fr, 1fr, 1fr, 1fr, gap: 8, align: stretch) {
+                    md:sleep_stat_avg
+                    md:sleep_stat_sleep_cons
+                    md:sleep_stat_wake_cons
+                    md:sleep_stat_accuracy
+                }
+                md:sleep_week_chart
+            }
+
+            v(fit, fit, fit, fit, gap: 12, pad: 16) {
+                h(fit, 1fr, fit, align: center) {
+                    md:sleep_last_night_heading
+                    space
+                    md:sleep_streak_badge
+                }
+                h(fit, fit, gap: 8, align: center) {
+                    md:sleep_last_night_duration
+                    md:sleep_last_night_trend
+                }
+                md:sleep_go_to_sleep_action
+                md:sleep_tap_hint
+            }
+
+            md:sleep_bottom_nav
+        }
+    }
+}

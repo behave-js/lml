@@ -1,0 +1,220 @@
+// Example 6: multi-page commerce flow
+// LML describes geometry only; content and transitions live in slide.md.
+
+host(align: leading, justify: start) {
+    page(md:catalog, w: 1440, h: 900, pad: 32) {
+        v(64, 1fr, 68, gap: 24) {
+            h(fit, 1fr, fit, gap: 24, align: center) {
+                md:catalog_brand
+                md:catalog_search
+                md:catalog_cart_action
+            }
+
+            h(220, 1fr, gap: 28, align: stretch) {
+                v(gap: 14) {
+                    md:catalog_filter_title
+                    md:catalog_category_all
+                    md:catalog_category_living
+                    md:catalog_category_kitchen
+                    md:catalog_category_stationery
+                }
+
+                v(48, 1fr, gap: 18) {
+                    h(fit, 1fr, fit, gap: 16, align: center) {
+                        md:catalog_heading
+                        md:catalog_result_count
+                        md:catalog_sort
+                    }
+                    grid(cols: 1fr 1fr 1fr, gap: 18) {
+                        md:catalog_product_lamp
+                        md:catalog_product_mug
+                        md:catalog_product_tray
+                        md:catalog_product_clock
+                        md:catalog_product_notebook
+                        md:catalog_product_blanket
+                    }
+                }
+            }
+
+            h(fit, 1fr, fit, gap: 20, align: center) {
+                md:catalog_shipping_note
+                space
+                md:catalog_support_note
+            }
+        }
+    }
+
+    page(md:product_detail, w: 1440, h: 900, pad: 32) {
+        v(64, 44, 1fr, 72, gap: 22) {
+            h(fit, 1fr, fit, gap: 24, align: center) {
+                md:detail_brand
+                md:detail_search
+                md:detail_cart_action
+            }
+
+            h(fit, 1fr, gap: 12, align: center) {
+                md:detail_breadcrumb_home
+                md:detail_breadcrumb_current
+            }
+
+            h(1fr, 1fr, gap: 40, align: stretch) {
+                z(pad: 18) {
+                    md:detail_product_gallery
+                    at(top: 20, left: 20, w: 76, h: 32) {
+                        md:detail_badge
+                    }
+                }
+
+                v(fit, fit, fit, 1fr, fit, fit, gap: 18) {
+                    md:detail_product_name
+                    md:detail_rating
+                    md:detail_price
+                    md:detail_description
+                    h(1fr, 1fr, gap: 12) {
+                        md:detail_quantity
+                        md:detail_delivery
+                    }
+                    h(1fr, 1fr, gap: 12) {
+                        md:detail_add_to_cart
+                        md:detail_buy_now
+                    }
+                }
+            }
+
+            h(fit, 1fr, fit, gap: 20, align: center) {
+                md:detail_returns_note
+                space
+                md:detail_secure_payment_note
+            }
+        }
+    }
+
+    page(md:cart, w: 1440, h: 900, pad: 32) {
+        v(64, 52, 1fr, gap: 24) {
+            h(fit, 1fr, fit, gap: 24, align: center) {
+                md:cart_brand
+                md:cart_continue_shopping
+                md:cart_item_count
+            }
+
+            h(fit, 1fr, gap: 16, align: center) {
+                md:cart_heading
+                md:cart_delivery_banner
+            }
+
+            h(2fr, 1fr, gap: 32, align: stretch) {
+                v(1fr, 1fr, 1fr, gap: 14) {
+                    h(110, 1fr, 132, fit, gap: 18, align: center) {
+                        md:cart_lamp_image
+                        md:cart_lamp_summary
+                        md:cart_lamp_quantity
+                        md:cart_lamp_remove
+                    }
+                    h(110, 1fr, 132, fit, gap: 18, align: center) {
+                        md:cart_mug_image
+                        md:cart_mug_summary
+                        md:cart_mug_quantity
+                        md:cart_mug_remove
+                    }
+                    md:cart_empty_slot_note
+                }
+
+                v(fit, fit, fit, fit, 1fr, 54, gap: 16) {
+                    md:cart_summary_heading
+                    h(gap: 12, align: center) {
+                        md:cart_subtotal_label
+                        space
+                        md:cart_subtotal_value
+                    }
+                    h(gap: 12, align: center) {
+                        md:cart_shipping_label
+                        space
+                        md:cart_shipping_value
+                    }
+                    h(gap: 12, align: center) {
+                        md:cart_total_label
+                        space
+                        md:cart_total_value
+                    }
+                    md:cart_policy_note
+                    md:cart_checkout_action
+                }
+            }
+        }
+    }
+
+    page(md:checkout, w: 1440, h: 900, pad: 32) {
+        v(64, 56, 1fr, gap: 24) {
+            h(fit, 1fr, fit, gap: 24, align: center) {
+                md:checkout_brand
+                md:checkout_secure_label
+                md:checkout_back_to_cart
+            }
+
+            h(fit, 1fr, gap: 16, align: center) {
+                md:checkout_heading
+                md:checkout_step_indicator
+            }
+
+            h(2fr, 1fr, gap: 32, align: stretch) {
+                v(fit, fit, fit, fit, 1fr, gap: 18) {
+                    md:checkout_contact_heading
+                    h(1fr, 1fr, gap: 14) {
+                        md:checkout_name_field
+                        md:checkout_phone_field
+                    }
+                    md:checkout_address_field
+                    h(1fr, 1fr, gap: 14) {
+                        md:checkout_city_field
+                        md:checkout_postal_field
+                    }
+                    v(fit, 1fr, fit, gap: 12) {
+                        md:checkout_payment_heading
+                        md:checkout_card_field
+                        md:checkout_validation_message
+                    }
+                }
+
+                v(fit, 1fr, fit, fit, fit, 56, gap: 16) {
+                    md:checkout_order_heading
+                    md:checkout_order_items
+                    md:checkout_order_subtotal
+                    md:checkout_order_shipping
+                    md:checkout_order_total
+                    md:checkout_submit_action
+                }
+            }
+        }
+    }
+
+    page(md:order_complete, w: 1440, h: 900, pad: 32) {
+        v(64, 1fr, 72, gap: 24) {
+            h(fit, 1fr, fit, gap: 24, align: center) {
+                md:complete_brand
+                space
+                md:complete_help_action
+            }
+
+            h(1fr, 640, 1fr, align: stretch) {
+                space
+                v(fit, fit, fit, fit, fit, gap: 22, align: stretch) {
+                    md:complete_success_icon
+                    md:complete_heading
+                    md:complete_order_number
+                    md:complete_delivery_summary
+                    h(1fr, 1fr, gap: 12) {
+                        md:complete_continue_action
+                        md:complete_history_action
+                    }
+                }
+                space
+            }
+
+            h(fit, 1fr, fit, gap: 20, align: center) {
+                md:complete_receipt_note
+                space
+                md:complete_support_note
+            }
+        }
+    }
+}

@@ -1,0 +1,60 @@
+// Example 4 — Workbench layout sketch
+// Pattern: app-header + notice + source/canvas/sidebar (wysiwyg/App.tsx)
+// Spacing: border separators, no inter-column gap (see workbench.md # workbench)
+
+host(align: leading, justify: start) {
+page(md:workbench, w: 1fr, h: 1fr) {
+    v(fit, fit, 1fr, gap: 0) {
+        h(fit, fit, 1fr, fit, fit, gap: 18, align: center) {
+            md:brand_block
+            md:preview_status
+            space
+            md:template_picker
+            h(fit, fit, fit, fit, fit, gap: 6, align: center) {
+                md:new_action
+                md:reset_action
+                md:header_divider
+                md:open_action
+                md:save_action
+            }
+        }
+
+        md:notice
+
+        h(340, 1fr, 290, gap: 0, align: stretch) {
+            v(fit, fit, 1fr, fit, gap: 0) {
+                md:lml_header
+                md:lml_context
+                md:lml_editor
+                md:lml_footer
+            }
+
+            v(fit, 1fr, gap: 0) {
+                h(gap: 10, align: center) {
+                    md:preview_header
+                    space
+                    md:preview_zoom
+                }
+                v(gap: 0) {
+                    md:preview_invalid
+                    md:preview_empty
+                    v(gap: 0) {
+                        md:preview_no_pages
+                        md:preview_gallery
+                    }
+                }
+            }
+
+            v(2fr, 1fr, 1.5fr, gap: 0) {
+                v(fit, fit, 1fr, gap: 0) {
+                    md:outline_panel
+                    md:outline_toolbar
+                    md:outline_tree
+                }
+                md:inspector_panel
+                md:diagnostics_panel
+            }
+        }
+    }
+}
+}

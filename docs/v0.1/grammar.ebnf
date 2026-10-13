@@ -1,0 +1,218 @@
+(* ==========================================================================
+   LML v0.1 — Context-Free Grammar (EBNF)
+
+   Notation:
+     |     alternation
+     ?     optional (0 or 1)
+     *     repetition (0 or more)
+     +     repetition (1 or more)
+     ( )   grouping
+     " "   literal terminal
+     (* *) comment
+
+   Lexer: context-free. Parser: context-aware (arg list vs node start).
+   See grammar.md for lexical rules and disambiguation.
+   ========================================================================== *)
+
+(* --------------------------------------------------------------------------
+   1. Document
+   Parser accepts any node; validator accepts host or legacy page roots (E004).
+   -------------------------------------------------------------------------- *)
+
+document    = node ;
+
+
+(* --------------------------------------------------------------------------
+   2. Nodes
+   -------------------------------------------------------------------------- *)
+
+node        = container
+            | markdown
+            | spacer ;
+
+
+(* --------------------------------------------------------------------------
+   3. Containers
+   -------------------------------------------------------------------------- *)
+
+container   = host
+            | page
+            | vstack
+            | hstack
+            | zstack
+            | at
+            | grid ;
+
+host        = "host" host_args? block ;
+page        = "page" page_args? block ;
+vstack      = "v" arg_list? block ;
+hstack      = "h" arg_list? block ;
+zstack      = "z" z_args? block ;
+at          = "at" at_args block ;
+grid        = "grid" grid_args block ;
+
+
+(* --------------------------------------------------------------------------
+   4. Argument lists
+   Positional dimensions and named params may appear in any order.
+   -------------------------------------------------------------------------- *)
+
+arg_list    = "(" arg ( "," arg )* ")" ;
+
+host_args   = "(" named_arg ( "," named_arg )* ")" ;
+page_args   = "(" page_arg_list ")" ;
+page_arg_list = page_ref ( "," named_arg )*
+              | named_arg ( "," named_arg )* ;
+page_ref    = "md" ":" ref_name ;   (* Page metadata; when present it must be first *)
+z_args      = "(" z_arg ( "," z_arg )* ")" ;
+z_arg       = "pad" ":" spacing_list ;
+at_args     = "(" ( at_arg ( "," at_arg )* )? ")" ;
+at_arg      = at_edge_key ":" at_offset
+            | at_size_key ":" at_size ;
+at_edge_key = "top" | "bottom" | "left" | "right" ;
+at_size_key = "w" | "h" ;
+at_offset   = NUMBER | PERCENT ;
+at_size     = NUMBER | PERCENT | FIT ;
+
+grid_args   = "(" grid_arg ( "," grid_arg )* ")" ;
+
+arg         = positional_arg
+            | named_arg ;
+
+grid_arg    = named_arg ;   (* grid uses named args only in v0.1 *)
+
+positional_arg
+            = dimension ;
+
+named_arg   = param_key ":" param_value ;
+
+param_key   = "gap"
+            | "pad"
+            | "align"
+            | "justify"
+            | "w"
+            | "h"
+            | "top"
+            | "bottom"
+            | "left"
+            | "right"
+            | "cols"
+            | "rows" ;
+
+
+(* --------------------------------------------------------------------------
+   5. Parameter values
+   -------------------------------------------------------------------------- *)
+
+param_value = dimension
+            | spacing_list
+            | align_value
+            | justify_value
+            | track_spec ;
+
+track_spec  = track_count
+            | track_list ;
+
+positive_integer = non_zero_digit digit* ;
+non_zero_digit   = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+track_count      = positive_integer ;   (* bare cols: N → N equal 1fr cols; NOT fixed width N *)
+
+track_list  = dimension ( dimension )* ;   (* whitespace-separated: 1fr 2fr 1fr, 240 1fr; lone positive_integer uses track_count precedence *)
+
+(* Parenthesized argument lists are non-empty except at(), which intentionally permits zero params.
+   Adjacent track tokens without lexical whitespace are invalid. *)
+
+spacing_list
+            = number
+            | number number
+            | number number number
+            | number number number number ;
+
+
+(* --------------------------------------------------------------------------
+   6. Dimensions (sizing)
+   Lexical tokens: NUMBER, FR, PERCENT, FIT
+   -------------------------------------------------------------------------- *)
+
+dimension   = NUMBER
+            | FR
+            | PERCENT
+            | FIT ;
+
+canvas_size = positive_integer ;   (* legacy page-axis AST form *)
+page_axis_size = canvas_size | dimension ;
+
+(* Contextual rule: page w/h use page_axis_size. A positive_integer emits CanvasSize;
+   other NUMBER forms emit Fixed. At w/h NUMBER always emits Fixed. Host has no size params. *)
+
+
+(* --------------------------------------------------------------------------
+   7. Alignment & distribution
+   -------------------------------------------------------------------------- *)
+
+align_value = "leading"
+            | "center"
+            | "trailing"
+            | "stretch" ;
+
+justify_value
+            = "start"
+            | "center"
+            | "end"
+            | "between"
+            | "around" ;
+
+
+(* --------------------------------------------------------------------------
+   8. Leaves
+   -------------------------------------------------------------------------- *)
+
+markdown    = "md" ":" ref_name            (* named reference: md:title *)
+            | "md" string_literal ;        (* inline: md """ ... """ *)
+
+ref_name    = identifier ;   (* parser also accepts keyword lexemes → E009 if reserved *)
+
+(* grid capacity: column_count = trackSpecCount(cols); row_count = trackSpecCount(rows) or ceil(n/column_count) *)
+
+spacer      = "space"
+            | "space" "(" dimension ")" ;  (* space(2fr) *)
+
+
+(* --------------------------------------------------------------------------
+   9. Block
+   -------------------------------------------------------------------------- *)
+
+block       = "{" node* "}" ;
+
+
+(* --------------------------------------------------------------------------
+   10. Lexical terminals (tokenized separately — see grammar.md)
+   -------------------------------------------------------------------------- *)
+
+(*
+   NUMBER   ::= integer ( '.' integer )?     e.g. 240, 16.5
+   FR       ::= number? "fr"                 e.g. fr, 1fr, 2fr, 1.5fr
+   PERCENT  ::= number "%"                   e.g. 30%, 16.5%
+   FIT      ::= "fit"
+   identifier ::= ident_start ident_continue*
+   (* md: ref names must not match reserved keywords — validator E009 *)
+*)
+
+ident_start = letter | "_" ;
+ident_continue = letter | digit | "_" | "-" ;
+letter      = "A"…"Z" | "a"…"z" ;
+digit       = "0"…"9" ;
+integer     = digit+ ;
+number      = integer ( "." integer )? ;
+
+string_literal = '"""' string_char* '"""' ;
+
+
+(* --------------------------------------------------------------------------
+   11. Ignored
+   -------------------------------------------------------------------------- *)
+
+(*
+   whitespace  = " " | "\t" | "\r" | "\n" ;
+   comment     = "//" { ? any char except \n ? } ( "\n" | EOF ) ;
+*)

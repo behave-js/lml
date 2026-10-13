@@ -1,0 +1,129 @@
+// Example 9: VS Code Explorer sidebar + editor shell
+// LML describes geometry only; tree data, selection, and interactions live in slide.md.
+
+host(align: leading, justify: start) {
+    page(md:explorer, w: 1280, h: 800) {
+        h(48, 260, 1fr, gap: 0, align: stretch) {
+            md:activity_bar
+
+            v(fit, 1fr, gap: 0) {
+                md:explorer_header
+
+                v(gap: 0) {
+                    md:section_open_editors
+
+                    v(gap: 0) {
+                        md:open_editor_main
+                        md:open_editor_utils
+                    }
+
+                    md:section_workspace
+
+                    v(gap: 0) {
+                        md:tree_src_folder
+                        md:tree_index_ts
+                        md:tree_utils_ts
+                        md:tree_main_ts
+                        md:tree_tests_folder
+                        md:tree_app_test_ts
+                        md:tree_package_json
+                        md:tree_readme_md
+                    }
+                }
+            }
+
+            v(fit, 1fr, gap: 0) {
+                h(fit, fit, 1fr, fit, gap: 0, align: center) {
+                    md:tab_main_ts
+                    md:tab_utils_ts
+                    space
+                    md:tab_group_actions
+                }
+
+                md:editor_content
+            }
+        }
+    }
+
+    page(md:explorer_collapsed, w: 1280, h: 800) {
+        h(48, 260, 1fr, gap: 0, align: stretch) {
+            md:collapsed_activity_bar
+
+            v(fit, 1fr, gap: 0) {
+                md:collapsed_explorer_header
+
+                v(gap: 0) {
+                    md:collapsed_section_open_editors
+
+                    md:collapsed_section_workspace
+
+                    v(gap: 0) {
+                        md:collapsed_tree_src_folder
+                        md:collapsed_tree_tests_folder
+                        md:collapsed_tree_app_test_ts
+                        md:collapsed_tree_package_json
+                        md:collapsed_tree_readme_md
+                    }
+                }
+            }
+
+            v(fit, 1fr, gap: 0) {
+                h(fit, 1fr, fit, gap: 0, align: center) {
+                    md:collapsed_tab_main_ts
+                    space
+                    md:collapsed_tab_group_actions
+                }
+
+                md:collapsed_editor_content
+            }
+        }
+    }
+
+    page(md:explorer_context_menu, w: 1280, h: 800) {
+        h(48, 260, 1fr, gap: 0, align: stretch) {
+            md:menu_activity_bar
+
+            v(fit, 1fr, gap: 0) {
+                md:menu_explorer_header
+
+                v(gap: 0) {
+                    md:menu_section_open_editors
+
+                    v(gap: 0) {
+                        md:menu_open_editor_main
+                        md:menu_open_editor_utils
+                    }
+
+                    md:menu_section_workspace
+
+                    v(gap: 0) {
+                        md:menu_tree_src_folder
+                        md:menu_tree_index_ts
+                        z {
+                            md:menu_tree_utils_ts
+                            at(top: 0, left: 24, w: 220, h: 280) {
+                                md:context_menu
+                            }
+                        }
+                        md:menu_tree_main_ts
+                        md:menu_tree_tests_folder
+                        md:menu_tree_app_test_ts
+                        md:menu_tree_package_json
+                        md:menu_tree_readme_md
+                    }
+                }
+            }
+
+            v(fit, 1fr, gap: 0) {
+                h(fit, fit, 1fr, fit, gap: 0, align: center) {
+                    md:menu_tab_main_ts
+                    md:menu_tab_utils_ts
+                    space
+                    md:menu_tab_group_actions
+                }
+
+                md:menu_editor_content
+            }
+        }
+    }
+}

@@ -1,0 +1,140 @@
+// Example 8: VS Code Keyboard Shortcuts settings UI
+// LML describes geometry only; commands, keybindings, and interactions live in slide.md.
+
+host(align: leading, justify: start) {
+    page(md:keyboard_shortcuts, w: 1280, h: 800) {
+        h(48, 1fr, gap: 0, align: stretch) {
+            md:activity_bar
+
+            v(fit, 1fr, gap: 0) {
+                h(fit, 1fr, fit, gap: 0, align: center) {
+                    md:tab_keyboard_shortcuts
+                    space
+                    md:tab_group_actions
+                }
+
+                v(fit, fit, 1fr, gap: 0) {
+                    h(fit, 1fr, fit, fit, fit, gap: 8, align: center) {
+                        md:shortcuts_search
+                        md:record_keybindings
+                        md:sort_keybindings
+                        md:filter_keybindings
+                        md:open_keybindings_json
+                    }
+
+                    h(2.2fr, 1fr, 1.6fr, fit, gap: 0, align: center) {
+                        md:col_command
+                        md:col_keybinding
+                        md:col_when
+                        md:col_source
+                    }
+
+                    v(fit, fit, fit, fit, fit, fit, fit, fit, fit, gap: 0) {
+                        md:row_open_file
+                        md:row_save
+                        md:row_find
+                        md:row_quick_open
+                        md:row_command_palette
+                        md:row_go_to_line
+                        md:row_toggle_terminal
+                        md:row_format_document
+                        md:row_toggle_sidebar
+                    }
+                }
+            }
+        }
+    }
+
+    page(md:keybinding_record, w: 1280, h: 800) {
+        h(48, 1fr, gap: 0, align: stretch) {
+            md:record_activity_bar
+
+            v(fit, 1fr, gap: 0) {
+                h(fit, 1fr, fit, gap: 0, align: center) {
+                    md:record_tab_keyboard_shortcuts
+                    space
+                    md:record_tab_group_actions
+                }
+
+                v(fit, fit, fit, 1fr, gap: 0) {
+                    md:record_banner
+
+                    h(fit, 1fr, fit, fit, fit, gap: 8, align: center) {
+                        md:record_shortcuts_search
+                        md:record_keybindings_active
+                        md:record_sort_keybindings
+                        md:record_filter_keybindings
+                        md:record_open_keybindings_json
+                    }
+
+                    h(2.2fr, 1fr, 1.6fr, fit, gap: 0, align: center) {
+                        md:record_col_command
+                        md:record_col_keybinding
+                        md:record_col_when
+                        md:record_col_source
+                    }
+
+                    v(fit, fit, fit, fit, fit, fit, fit, fit, fit, gap: 0) {
+                        md:record_row_open_file
+                        md:record_row_save
+                        md:record_row_find
+                        md:record_row_quick_open
+                        md:record_row_command_palette
+                        md:record_row_go_to_line
+                        md:record_row_toggle_terminal
+                        md:record_row_format_document
+                        md:record_row_toggle_sidebar
+                    }
+                }
+            }
+        }
+    }
+
+    page(md:keybinding_edit, w: 1280, h: 800) {
+        h(48, 1fr, gap: 0, align: stretch) {
+            md:edit_activity_bar
+
+            v(fit, 1fr, gap: 0) {
+                h(fit, 1fr, fit, gap: 0, align: center) {
+                    md:edit_tab_keyboard_shortcuts
+                    space
+                    md:edit_tab_group_actions
+                }
+
+                v(fit, fit, 1fr, gap: 0) {
+                    h(fit, 1fr, fit, fit, fit, gap: 8, align: center) {
+                        md:edit_shortcuts_search
+                        md:edit_record_keybindings
+                        md:edit_sort_keybindings
+                        md:edit_filter_keybindings
+                        md:edit_open_keybindings_json
+                    }
+
+                    h(2.2fr, 1fr, 1.6fr, fit, gap: 0, align: center) {
+                        md:edit_col_command
+                        md:edit_col_keybinding
+                        md:edit_col_when
+                        md:edit_col_source
+                    }
+
+                    v(fit, fit, fit, fit, fit, fit, fit, fit, fit, gap: 0) {
+                        md:edit_row_open_file
+                        md:edit_row_save
+                        md:edit_row_find
+                        md:edit_row_quick_open
+                        md:edit_row_command_palette
+                        md:edit_row_go_to_line
+                        md:edit_row_toggle_terminal
+                        z {
+                            md:edit_row_format_document
+                            at(top: 0, left: 0, right: 0, h: 40) {
+                                md:edit_chord_input
+                            }
+                        }
+                        md:edit_row_toggle_sidebar
+                    }
+                }
+            }
+        }
+    }
+}

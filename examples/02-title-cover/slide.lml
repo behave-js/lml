@@ -1,0 +1,21 @@
+// Example 2: Cover slide with overlay + header/footer bar
+// Pattern: z (background) + v + h with space spacer
+
+page(w: 1920, h: 1080) {
+    z {
+        md:background
+
+        v(pad: 80, gap: 32, justify: center) {
+            md:title
+            md:subtitle
+
+            space
+
+            h(align: trailing) {
+                md:author
+                space
+                md:date
+            }
+        }
+    }
+}

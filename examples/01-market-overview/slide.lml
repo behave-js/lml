@@ -1,0 +1,23 @@
+// Example 1: Two-column report slide with nested stacks
+// Pattern: page → v → h(2fr, 1fr) → nested v + h
+
+page(pad: 40) {
+    v(gap: 24) {
+        md:header
+
+        h(2fr, 1fr, gap: 20, align: leading) {
+            md:analysis
+
+            v(gap: 16) {
+                md:insight
+
+                h(1fr, 1fr, gap: 12) {
+                    md:cagr
+                    md:margin
+                }
+
+                md:commentary
+            }
+        }
+    }
+}
